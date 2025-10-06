@@ -1,7 +1,7 @@
 package by.javaguru.orders.service;
 
 import by.javaguru.core.dto.Order;
-import by.javaguru.core.dto.event.OrderCreatedEvent;
+import by.javaguru.core.dto.events.OrderCreatedEvent;
 import by.javaguru.core.types.OrderStatus;
 import by.javaguru.orders.dao.jpa.entity.OrderEntity;
 import by.javaguru.orders.dao.jpa.repository.OrderRepository;
@@ -43,6 +43,9 @@ public class OrderServiceImpl implements OrderService {
                 order.getProductId(),
                 order.getProductQuantity()
         );
+
+
+        kafkaTemplate.send(ordersEventsTopicName, placedOrder);
 
         return new Order(
                 entity.getId(),

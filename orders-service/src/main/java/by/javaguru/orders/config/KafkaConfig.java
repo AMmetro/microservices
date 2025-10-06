@@ -11,7 +11,7 @@ import org.springframework.kafka.core.ProducerFactory;
 @Configuration
 public class KafkaConfig {
 
-    @Value("orders-event")
+    @Value("${orders.events.topic.name}")
     private String ordersEventsTopicName;
 
     @Value("${products.commands.topic.name}")
@@ -31,7 +31,7 @@ public class KafkaConfig {
     NewTopic createOrdersEventsTopic() {
         return TopicBuilder.name(ordersEventsTopicName)
                 .partitions(TOPIC_PARTITIONS)
-                .replicas(TOPIC_PARTITIONS)
+                .replicas(TOPIC_REPLICATION_FACTOR)
                 .build();
     }
 
@@ -39,7 +39,7 @@ public class KafkaConfig {
     NewTopic createProductsCommandsTopic() {
         return TopicBuilder.name(productsCommandsTopicName)
                 .partitions(TOPIC_PARTITIONS)
-                .replicas(TOPIC_PARTITIONS)
+                .replicas(TOPIC_REPLICATION_FACTOR)
                 .build();
     }
 

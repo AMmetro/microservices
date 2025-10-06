@@ -1,9 +1,9 @@
 package by.javaguru.orders.saga;
 
 import by.javaguru.core.dto.command.ReserveProductCommand;
-import by.javaguru.core.dto.event.OrderCreatedEvent;
-import by.javaguru.core.types.OrderStatus;
 import by.javaguru.orders.service.OrderHistoryService;
+import by.javaguru.core.dto.events.OrderCreatedEvent;
+import by.javaguru.core.types.OrderStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -29,16 +29,17 @@ public class OrderSaga {
     }
 
     @KafkaHandler
-    public void handlerEvent(@Payload OrderCreatedEvent event) {
+    public void handleEvent(@Payload OrderCreatedEvent event) {
+
         ReserveProductCommand command = new ReserveProductCommand(
                 event.getProductId(),
                 event.getProductQuantity(),
-                event.getOrderID()
+                event.getOrderId()
         );
 
         kafkaTemplate.send(productsCommandsTopicName, command);
 
-        orderHistoryService.add(event.getOrderID(), OrderStatus.CREATED);
+        orderHistoryService.add(event.getOrderId(), OrderStatus.CREATED);
 
     }
 

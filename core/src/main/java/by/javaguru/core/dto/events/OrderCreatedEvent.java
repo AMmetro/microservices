@@ -1,5 +1,4 @@
-package by.javaguru.core.dto.event;
-
+package by.javaguru.core.dto.events;
 
 import java.util.UUID;
 
@@ -16,30 +15,35 @@ public class OrderCreatedEvent {
         this.productQuantity = productQuantity;
     }
 
+    public UUID getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(UUID orderId) {
+        this.orderId = orderId;
+    }
+
+    public UUID getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(UUID customerId) {
+        this.customerId = customerId;
+    }
+
     public UUID getProductId() {
         return productId;
     }
 
-    public UUID getOrderID() {
-        return orderId;
+    public void setProductId(UUID productId) {
+        this.productId = productId;
     }
 
     public Integer getProductQuantity() {
         return productQuantity;
     }
 
-    public void setOrderId(UUID orderId) {
-        // пока не реализовано
+    public void setProductQuantity(Integer productQuantity) {
+        this.productQuantity = productQuantity;
     }
-
-    @Override
-    public String toString() {
-        return "OrderCreatedEvent{" +
-                "orderId=" + orderId +
-                ", customerId=" + customerId +
-                ", productId=" + productId +
-                ", productQuantity=" + productQuantity +
-                '}';
-    }
-
 }
