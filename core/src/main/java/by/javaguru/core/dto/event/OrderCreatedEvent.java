@@ -16,11 +16,30 @@ public class OrderCreatedEvent {
         this.productQuantity = productQuantity;
     }
 
+    public UUID getProductId() {
+        return productId;
+    }
+
     public UUID getOrderID() {
         return orderId;
+    }
+
+    public Integer getProductQuantity() {
+        return productQuantity;
     }
 
     public void setOrderId(UUID orderId) {
         // пока не реализовано
     }
+
+    @Override
+    public String toString() {
+        return "OrderCreatedEvent{" +
+                "orderId=" + orderId +
+                ", customerId=" + customerId +
+                ", productId=" + productId +
+                ", productQuantity=" + productQuantity +
+                '}';
+    }
+
 }
