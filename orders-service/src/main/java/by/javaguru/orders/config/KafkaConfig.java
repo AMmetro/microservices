@@ -17,9 +17,7 @@ public class KafkaConfig {
     @Value("${products.commands.topic.name}")
     private String productsCommandsTopicName;
 
-    //сколько копий будет храниться на разных брокерах (для отказоустойчивости)
     private final static Integer TOPIC_REPLICATION_FACTOR = 3;
-    // сколько логических разделов будет у топика(для параллельной обработки)
     private final static Integer TOPIC_PARTITIONS = 3;
 
     @Bean
@@ -27,8 +25,8 @@ public class KafkaConfig {
         return new KafkaTemplate<>(producerFactory);
     }
 
-    @Bean
-    NewTopic createOrdersEventsTopic() {
+        @Bean
+        NewTopic createOrdersEventsTopic() {
         return TopicBuilder.name(ordersEventsTopicName)
                 .partitions(TOPIC_PARTITIONS)
                 .replicas(TOPIC_REPLICATION_FACTOR)

@@ -1,7 +1,7 @@
 package by.javaguru.orders.service;
 
 import by.javaguru.core.dto.Order;
-import by.javaguru.core.dto.events.OrderCreatedEvent;
+import by.javaguru.core.dto.event.OrderCreatedEvent;
 import by.javaguru.core.types.OrderStatus;
 import by.javaguru.orders.dao.jpa.entity.OrderEntity;
 import by.javaguru.orders.dao.jpa.repository.OrderRepository;
@@ -12,17 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
-
-    /*
-     * Options for Kafka - for create msg
-     */
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final String ordersEventsTopicName;
 
     public OrderServiceImpl(OrderRepository orderRepository,
                             KafkaTemplate<String, Object> kafkaTemplate,
-                            // name of topic for kafka
-                            @Value("${orders.events.topic.name}") String ordersEventsTopicName) {
+                            @Value("${orders.events.topic.name}")String ordersEventsTopicName) {
         this.orderRepository = orderRepository;
         this.kafkaTemplate = kafkaTemplate;
         this.ordersEventsTopicName = ordersEventsTopicName;
@@ -43,7 +38,6 @@ public class OrderServiceImpl implements OrderService {
                 order.getProductId(),
                 order.getProductQuantity()
         );
-
 
         kafkaTemplate.send(ordersEventsTopicName, placedOrder);
 
