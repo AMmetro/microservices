@@ -1,20 +1,11 @@
-package by.javaguru.core.dto.command;
-
+package by.javaguru.core.dto.event;
 import java.util.UUID;
 
-public class ReserveProductCommand {
+public class ProductReservationFailedEvent {
 
+    private UUID orderId;
     private UUID productId;
     private Integer productQuantity;
-    private UUID orderId;
-
-    public UUID getProductId() {
-        return productId;
-    }
-
-    public void setProductId(UUID productId) {
-        this.productId = productId;
-    }
 
     public UUID getOrderId() {
         return orderId;
@@ -22,6 +13,14 @@ public class ReserveProductCommand {
 
     public void setOrderId(UUID orderId) {
         this.orderId = orderId;
+    }
+
+    public UUID getProductId() {
+        return productId;
+    }
+
+    public void setProductId(UUID productId) {
+        this.productId = productId;
     }
 
     public Integer getProductQuantity() {
@@ -32,13 +31,11 @@ public class ReserveProductCommand {
         this.productQuantity = productQuantity;
     }
 
-    public ReserveProductCommand() {
-        // use for deserialization Jackson
-    }
+    public ProductReservationFailedEvent() {}
 
-    public ReserveProductCommand(UUID orderId, Integer productQuantity, UUID productId) {
+    public ProductReservationFailedEvent(UUID orderId, UUID productId, Integer productQuantity) {
         this.orderId = orderId;
-        this.productQuantity = productQuantity;
         this.productId = productId;
+        this.productQuantity = productQuantity;
     }
 }

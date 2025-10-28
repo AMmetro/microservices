@@ -26,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
             throw new ProductInsufficientQuantityException(productEntity.getId(), orderId);
         }
 
+        /* todo - change status to reserved instead minus quantity */
         productEntity.setQuantity(productEntity.getQuantity() - desiredProduct.getQuantity());
         productRepository.save(productEntity);
 
